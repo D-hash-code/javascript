@@ -111,3 +111,38 @@ We can simply pass through. Note we need to keep the key prop.
 ```
 
 Having made this change we need to go into the component definition and make some corresponding adjustments there
+
+#### Spreads
+
+In the wild, people will shorten this...
+```javascript
+ const cards = data.map(item => {
+     return (
+         <Card
+             key={item.id}
+             id={item.id}
+             title={item.title}
+             description={item.description}
+             
+         />
+     )
+ })        
+    
+```
+
+... to this
+```javascript
+ const cards = data.map(item => {
+     return (
+         <Card
+             key={item.id}
+             {...item}
+             
+         />
+     )
+ })   
+```
+
+Read about it [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax#spread_in_object_literals)
+
+While this makes things more succint in the component. E.g. we don't need to write `props.item.stats.reviewCount`, we can instead now write `props.stats.reviewCount`. This method can create obscurity because we sometimes won't know what is coming from the data source. 
