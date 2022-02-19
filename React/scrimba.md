@@ -16,6 +16,10 @@ jokesData is a JS Object like the data coming in will probably be
 
 
 ### Leveraging Maps and Components in React
+
+[Good Maps to Components Chapter](https://scrimba.com/learn/learnreact/project-map-experiences-data-into-components-co0704006bcf75aae48fb04c3)
+
+
 Like a for loop? But handier
 
 ```javascript
@@ -23,6 +27,7 @@ const jokesElements = jokesData.map(joke => {
         return <JokeComponent />
     })
 ```
+NOTE: Maps Need a `key` prop when used for rendering Components
 
 ### Questions from Bob about `.maps()`
 
