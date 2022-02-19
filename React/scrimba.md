@@ -50,3 +50,64 @@ that can be displayed on the page.
 
 It makes our code more "self-sustaining" - not requiring
 additional changes whenever the data changes.
+
+
+### Conditional rendering
+
+[Conditional Rendering Chapter](https://scrimba.com/learn/learnreact/project-sold-out-badge-cod6a41078bdec8db3c39513b)
+
+The term refers to when we will only sometimes render a part of a page. In the below code block, every part of the component will get rendered every time a component is called.
+
+```javascript
+import React from "react"
+
+export default function Card(props) {
+    return (
+        <div className="card">
+            <img src={`../images/${props.img}`} className="card--image" />
+            <div className="card--stats">
+                <img src="../images/star.png" className="card--star" />
+                <span>{props.rating}</span>
+                <span className="gray">({props.reviewCount}) • </span>
+                <span className="gray">{props.location}</span>
+            </div>
+            <p className="card--title">{props.title}</p>
+            <p className="card--price"><span className="bold">From ${props.price}</span> / person</p>
+        </div>
+    )
+}
+```
+Suppose we wish to render a small graphical component with some text if the value of "counter" is greater than 0.
+
+```javascript
+{counter>0 && <div>Counter Value Greater than Zero</div>}
+```
+Including {} inside the JSX actually escapes JSX and everything inside the curly braces is javascript. Now inside the curly braces we can use javascript to check if counter is greater than zero. If it is then the rest of the contents of the curly braces will process, i.e. it will render. Otherwise not.
+
+### Pass objects as Props
+
+[Pass objects as props chapter](https://scrimba.com/learn/learnreact/project-pass-object-as-props-cod6f4e56bca6a67caca77684)
+
+So instead of passing through
+```javascript
+<Card
+    key={item.id}
+    img={item.coverImg}
+    rating={item.stats.rating}
+    reviewCount={item.stats.reviewCount}
+    location={item.location}
+    title={item.title}
+    price={item.price}
+    openSpots={item.openSpots}
+/>
+```
+
+We can simply pass through. Note we need to keep the key prop.
+```javascript
+<Card
+    key={item.id}
+    item={item}
+/>
+```
+
+Having made this change we need to go into the component definition and make some corresponding adjustments there
