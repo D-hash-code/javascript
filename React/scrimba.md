@@ -145,4 +145,11 @@ In the wild, people will shorten this...
 
 Read about it [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax#spread_in_object_literals)
 
-While this makes things more succint in the component. E.g. we don't need to write `props.item.stats.reviewCount`, we can instead now write `props.stats.reviewCount`. This method can create obscurity because we sometimes won't know what is coming from the data source. 
+While this makes things more succint in the component. E.g. we don't need to write `props.item.stats.reviewCount`, we can instead now write `props.stats.reviewCount`. This method can create obscurity because we sometimes won't know what is coming from the data source.
+
+
+### Notes from Building a Meme Generator
+
+- 1 rem == 16 px preferable to use rem for fonts for some reason?
+- Use flex box for a strip like layout where everything is on a single line
+- Why use padding? 
