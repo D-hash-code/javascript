@@ -153,3 +153,87 @@ While this makes things more succint in the component. E.g. we don't need to wri
 - 1 rem == 16 px preferable to use rem for fonts for some reason?
 - Use flex box for a strip like layout where everything is on a single line
 - Why use padding? 
+- When there are components dependent on states we need to make considerations for passing state information across to the components
+- In styling the meme generator body/main the process used
+  - write out the html objects
+  - if using grid, decide how the page should be broken down (in terms of sections) and create the grid container html and style
+  - put the grid information in the html objects corresponding style
+  - add padding and margins as necessary. in the tutorial they placed a gap element in the grid parent container style and the padding component in the main style component
+  - adjust borders
+  - adjust fonts (not always necessary if predefined)
+
+#### On building a Reactive Web Application
+
+> the difference between a static and dynamic webpage is the ability for a user to interact with the page. In order for a user to interact with the page we have to be listening to various "events" on the page and reacting when those events happen.
+
+In the case of the meme generator
+- as soon as the app loads for the very first time (event), it is going to make an api call to an api called image flip which returns an array of 100 meme images.
+- Clicking the get a new meme image button (event), will randomly choose one of those images from the array that got returned to us.
+- We need to add an "event listener" to the button so that we can run some logic when the button is hit
+
+### Event Listeners
+
+[Event Listeners Chapter](https://scrimba.com/learn/learnreact/event-listeners-co45a4eba8c0ba3e8ba7df31b)
+
+There are two main ways to add event listeners to a vanilla js program.
+
+```javascript
+button.addEventListener("click", function() {
+    return ...
+})
+```
+
+or within the html we have something like
+```javascript
+<div onclick="myFunction()" id="root"></div>
+```
+where myFunction() points to some js function. This second way is more similar to how event listeners are added through React.
+
+Suppose we want to log something on the console when a certain button is clicked. In the jsx we add
+```javascript
+<button onClick={function() {}}>Click me</button>
+```
+Notice the capital C in onClick. This is because we are accessing the dom properties of the object, which you can see if you do getDocumentById and access the properties. Basically, instead of using lower case as is typical in standard html, we use camel casing `onclick -> onClick`.
+
+Another thing is that because we are in jsx, instead of putting in a string we can just write the function through curly braces, or call the function from the braces.
+
+#### A quick unpleasant GOTCHA
+What is wrong with the following (as it relates to the above desired behaviour)?
+
+```javascript
+export default function App() {
+    var counter = 0
+    function handleClick() {
+        console.log("I was clicked!")
+    }
+    
+    return (
+        <div className="container">
+            <button onClick={handleClick()}>Click me</button>
+        </div>
+    )
+}
+```
+
+You, like myself, may be tricked into thinking that you can simply place the function like `handleClick()` and it would work fine. But when you do that, on rendering the page it runs the function handleClick, and when you click the button it does nothing. Particularly, when it reads that line it runs the function.
+
+Instead, we need to pass the function as a value (see below), so that react can add that function as the event handler in case the button is ever clicked.
+
+```javascript
+export default function App() {
+    var counter = 0
+    function handleClick() {
+        console.log("I was clicked!")
+    }
+    
+    return (
+        <div className="container">
+            <button onClick={handleClick}>Click me</button>
+        </div>
+    )
+}
+```
+
+[Here is a full list of events that react supports](https://reactjs.org/docs/events.html#mouse-events)
+
+Mouse events take up about 95% of the events that web applications listen for.
