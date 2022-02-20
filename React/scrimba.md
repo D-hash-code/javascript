@@ -237,3 +237,75 @@ export default function App() {
 [Here is a full list of events that react supports](https://reactjs.org/docs/events.html#mouse-events)
 
 Mouse events take up about 95% of the events that web applications listen for.
+
+### Starting to think about APIs, the fun stuff
+
+[Link to API chapter](https://scrimba.com/learn/learnreact/project-get-random-meme-co0d240b0b92838697b8749a1)
+
+Here is a way to get a random element from an array 
+```javascript
+var item = array[Math.floor(Math.random()*array.length)];
+```
+
+Object destructuring! This is cool!
+
+```javascript
+// Given that each element in the memesArray has a url key then
+
+const url = memesArray[randomNumber].url
+
+// is equivalent to 
+
+const {url} = memesArray[randomNumber]
+
+```
+
+If at the beginning of rendering a page a certain variable isn't defined then react won't render it on the page. When that variable is later set, either through the click of a button or some interaction we need to make some changes so that react can appropriately react.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
