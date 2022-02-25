@@ -332,8 +332,39 @@ ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
 
+#### Using States vs Props
+
+[When to use states vs props](https://scrimba.com/learn/learnreact/props-vs-state-state-cofdc4d4d891c36fc3b0c77fa)
+
+Props are not passed into a function to be reassigned or replaced. That is a huge red flag. If you want to change the value of a prop going into a component you change it at the level of calling the component not inside the component.
+
+On the other hand there will be reasons for you to want to have variables that change or can be different within the component depending on context. E.g. depending on the time of day you display certain information.
+
+**In react values that are created by the function or component are usually handled with state.**
 
 
+```javascript
+
+function greeting(name) {
+    const date = new Date()
+    const hours = date.getHours()
+    
+    let timeOfDay
+    if(hours >= 4 && hours < 12) {
+        timeOfDay = "morning"
+    } else if(hours >= 12 && hours < 17) {
+        timeOfDay = "afternoon"
+    } else if(hours >= 17 && hours < 20) {
+        timeOfDay = "evening"
+    } else {
+        timeOfDay = "night"
+    }
+    
+    return `Good ${timeOfDay}, ${name}!`
+}
+
+console.log(greeting("Bob"))
+```
 
 
 
