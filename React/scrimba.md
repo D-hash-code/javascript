@@ -263,7 +263,7 @@ const {url} = memesArray[randomNumber]
 If at the beginning of rendering a page a certain variable isn't defined then react won't render it on the page. When that variable is later set, either through the click of a button or some interaction we need to make some changes so that react can appropriately react.
 
 
-#### Motivating States, Getting Interactive
+### Motivating States, Getting Interactive
 
 [Our current conundrum](https://scrimba.com/learn/learnreact/our-current-conundrum-co53a4b68be61be4a8e646607)
 
@@ -332,7 +332,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
 
-#### Using States vs Props
+### Using States vs Props
 
 [When to use states vs props](https://scrimba.com/learn/learnreact/props-vs-state-state-cofdc4d4d891c36fc3b0c77fa)
 
@@ -366,10 +366,55 @@ function greeting(name) {
 console.log(greeting("Bob"))
 ```
 
+### useState and Array Destructuring
 
+[useState and Array Destructuring](https://scrimba.com/learn/learnreact/usestate-array-destructuring-co70846728c7d60f51fa1997c)
 
+This is more or less how you define a state
 
+```javascript
+import React from "react"
+import ReactDOM from "react-dom"
 
+export default function App() {
+    const [isImportant, func] = React.useState("Yes")
+    return (
+        <div className="state">
+            <h1 className="state--title">Is state important to know?</h1>
+            <div className="state--value">
+                <h1>{isImportant}</h1>
+            </div>
+        </div>
+    )
+}
+
+ReactDOM.render(<App />, document.getElementById("root"))
+```
+
+Now, the reason we are given a function from `React.useState()` is for us to use when we want to change the value/data/state, and react will handle those changes accordingly.
+
+Note, for states the `func` is usually named `set`, so in this example we would write `setIsImportant`. And whatever value provided to it is going to be the new version of state. `setIsImportant("No")`
+
+```javascript
+import React from "react"
+
+export default function App() {
+    const [isImportant, setIsImportant] = React.useState("Yes")
+
+    function handleClick() {
+        setIsImportant("No")
+    }
+    
+    return (
+        <div className="state">
+            <h1 className="state--title">Is state important to know?</h1>
+            <div className="state--value" onClick={handleClick}>
+                <h1>{isImportant}</h1>
+            </div>
+        </div>
+    )
+}
+```
 
 
 
