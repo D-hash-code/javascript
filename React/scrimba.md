@@ -417,14 +417,91 @@ export default function App() {
 ```
 
 
+A good rule is to declare the handleClick type functions that change the state inside the component. Not exactly sure why but have a hunch.
 
 
+This technically works but it's not best practice to use the `count` value inside the `setCount` function
 
+```javascript
+import React from "react"
 
+export default function App() {
+    const [count, setCount] = React.useState(0)
+    
+    function add() {
+        setCount(count + 1)
+    }
+    
+    function subtract() {
+        setCount(count - 1)
+    }
+    
+    return (
+        <div className="counter">
+            <button className="counter--minus" onClick={subtract}>–</button>
+            <div className="counter--count">
+                <h1>{count}</h1>
+            </div>
+            <button className="counter--plus" onClick={add}>+</button>
+        </div>
+    )
+}
+```
 
+Let's find out why and what to do about it.
 
+### useState - Changing state with a Callback function
 
+[Changing state with a callback function](https://scrimba.com/learn/learnreact/usestate-changing-state-with-a-callback-function-cof9245f4a914e8aaf080c783)
 
+Understanding why the following below is a better way to update a state using the previous state value requires a deeper understanding of how state works. 
+
+By default, when we call the setCount function with a callback on the inside, the default argument passed in is the previous state
+
+```javascript
+import React from "react"
+
+export default function App() {
+    const [count, setCount] = React.useState(0)
+    
+    function add() {
+        setCount(function(oldValue) {
+            return oldValue + 1
+        })
+    }
+    
+    function subtract() {
+        setCount(count - 1)
+    }
+    
+    return (
+        <div className="counter">
+            <button className="counter--minus" onClick={subtract}>–</button>
+            <div className="counter--count">
+                <h1>{count}</h1>
+            </div>
+            <button className="counter--plus" onClick={add}>+</button>
+        </div>
+    )
+}
+```
+
+We can shorten this a bit by replacing the callback part with an arrow thingy
+
+```javascript
+function add() {
+    setCount(oldValue => oldValue + 1)
+}
+```
+Bob further recommends this
+```javascript
+function add() {
+    setCount(prevCount => prevCount + 1)
+}
+```
+Here it is in Bob's words
+
+> Note: if you ever need the old value of state to help you determine the new value of state, you should pass a callback function to your state setter function instead of using  state directly. This callback function will receive the old value of state as its parameter, which you can then use to determine your new value of state.
 
 
 
