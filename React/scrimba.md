@@ -263,11 +263,73 @@ const {url} = memesArray[randomNumber]
 If at the beginning of rendering a page a certain variable isn't defined then react won't render it on the page. When that variable is later set, either through the click of a button or some interaction we need to make some changes so that react can appropriately react.
 
 
+#### Motivating States, Getting Interactive
+
+[Our current conundrum](https://scrimba.com/learn/learnreact/our-current-conundrum-co53a4b68be61be4a8e646607)
+
+The great mystery: when to use semicolons?
+
+```javascript
+function App() {
+    const thingsArray = ["Thing 1", "Thing 2"]
+    const thingsElements = thingsArray.map(thing => <p key={thing}>{thing}</p>)
+    
+    function newElement() {
+        const newItem = "Thing " + (thingsArray.length + 1);
+        thingsArray.push(newItem);
+        console.log(thingsArray);
+        return null
+    }
+    
+    return (
+        <div>
+            <button onClick={newElement}>Add Item</button>
+            {thingsElements}
+        </div>
+    )
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
+```
+
+A common error causer is forgetting to preempt things with const/var etc. 
+
+React is not looking at local arrays that are just saved within a component to determine whether or not something should get re-rendered. Or if the return should run again with an updated value for things elements. No matter what you do to change thingsArray after render its not automatically going to change thingsElements.
+
+React sort of freezes thingsArray in memory when it renders the page.
 
 
+Typically, for Vanilla JS you need to find out which component or area needs to get rerendered for this change to come into effect on the page. But the advantage of react is that it is declarative, in that we can just focus on making sure that the data update is correct, and react will handle the rest.
+
+For this to work, we need to access something called react state. State will allow us to Hook into the component and make it so that whenever we update our state (which is really just values that we are saving inside the component) it makes it so that react will update the user interface based on any changes that happen to those values being saved in state. 
 
 
+and VOILA...
 
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+function App() {
+    const [things, setThings] = React.useState(["Thing 1", "Thing 2"])
+    
+    function addItem() {
+        const newThingText = `Thing ${things.length + 1}`
+        setThings(prevState => [...prevState, newThingText])
+    }
+    
+    const thingsElements = things.map(thing => <p key={thing}>{thing}</p>)
+    
+    return (
+        <div>
+            <button onClick={addItem}>Add Item</button>
+            {thingsElements}
+        </div>
+    )
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
+```
 
 
 
