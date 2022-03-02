@@ -507,19 +507,85 @@ Here it is in Bob's words
 
 
 
+## Articles
+
+### React Hooks
+
+[Intro to React Hooks - American Express Technology](https://americanexpress.io/hooks-intro/)
+
+> Remember, this is the logic for keeping the current count in state, and for incrementing and decrementing the count. It doesn’t render anything by itself—the render prop does that—and yet we still treat it as a component (i.e., we render it with <Counter />).
+
+The idea that the /logic for handling the state values/ is included in the part where we render the component doesn’t make sense
+
+> Instead of the logic calling something to render, what if we started with what you want to render, and have that call—or use—the logic to get the data that it needs? That’s what hooks are all about.
+
+
+When you want to use a hook 
+> It is worth noting that instead of passing an initial value, you may pass a function. If you do, useState will only call it once to compute the initial value.
+
+```javascript
+const someExpensiveProcedure = () => {
+  let results;
+  for (let i = 0; i < 10000000; i++) {
+    // do someething with results
+  }
+  return results;
+};
+
+const [value, setValue] = useState(someExpensiveProcedure);
+ 
+```
 
 
 
+I always wondered why and when they increment the version
+
+> In fact, if you look at this from the standpoint of semantic versioning, 16.8.0 means that there are no breaking changes. That is important. If hooks came out in something like 17.0.0, we might have cause for alarm.
 
 
 
+## Questions
+* what are render props?
+	* The term “render prop” refers to *a technique for sharing code between React components using a prop whose value is a function*
+* what are class components? Is that just a reference to react components? Why would hooks replace them?
 
 
+#### This makes no sense to me 😂
+> Performance should also be a consideration when writing hooks. In my useCounter above, the reference to increment and decrement functions will change on each render. This is becasue they are created and returned as arrow functions. This may cause your navigation controls to render unnecessarily.
+> If rendering performance is a concern, the solution is—you guessed it—another hook. React provides a useCallback hook for just this reason. We can wrap our callback functions in useCallback and React will memoize them, assuring** that they point to the same function each time.
+* what do you mean that the reference to increment and decrement functions will change on each render? Does that mean they 
 
+Basically do this
+```javascript
+const useCounter = initialCount => {
+  const [count, setCount] = useState(initialCount);
+  const increment = useCallback(() => setCount(currentCount => currentCount + 1), [setCount]);
+  const decrement = useCallback(() => setCount(currentCount => currentCount - 1), [setCount]);
 
+  return {
+    count,
+    increment,
+    decrement,
+  };
+};
+```
 
+Instead of this
 
+```javascript
+import { useState } from 'react';
 
+const useCounter = initialCount => {
+  const [count, setCount] = useState(initialCount);
+
+  return {
+    count,
+    increment: () => setCount(currentCount => currentCount + 1),
+    decrement: () => setCount(currentCount => currentCount - 1),
+  };
+};
+export default useCounter;
+```
 
 
 
