@@ -545,6 +545,33 @@ export default function Meme() {
 }
 ```
 
+### Ternary's and more state stuff
+
+[ternar's and state stuff](https://scrimba.com/learn/learnreact/challenge-flipping-state-back-and-forth-co4674229b54cd8335c75e54d)
+
+
+
+```javascript
+import React from "react"
+
+export default function App() {
+    const [isGoingOut, setIsGoingOut] = React.useState(true)
+
+    function changeMind() {
+        setIsGoingOut(prevState => !prevState)
+    }
+    
+    return (
+        <div className="state">
+            <h1 className="state--title">Do I feel like going out tonight?</h1>
+            <div onClick={changeMind} className="state--value">
+                <h1>{isGoingOut ? "Yes" : "No"}</h1>
+            </div>
+        </div>
+    )
+}
+```
+
 
 
 
