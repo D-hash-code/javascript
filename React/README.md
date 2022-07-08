@@ -605,6 +605,28 @@ function App() {
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
+### Complex State - working with object state items
+
+```javascript
+const [contact, setContact] = React.useState({
+    firstName: "John",
+    lastName: "Doe",
+    phone: "+1 (719) 555-1212",
+    email: "itsmyrealname@example.com",
+    isFavorite: true
+})
+
+function toggleFavorite() {
+    setContact(prevContact => {
+        return {
+            ...prevContact,
+            isFavorite: !prevContact.isFavorite
+        }
+    })
+}
+```
+
+use the ... operator to spread out the object.
 
 
 ## Articles
@@ -686,7 +708,6 @@ const useCounter = initialCount => {
 };
 export default useCounter;
 ```
-
 
 
 
